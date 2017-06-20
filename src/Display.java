@@ -23,7 +23,7 @@ public class Display extends JPanel implements ActionListener{
 	private int score=0;
 	Display(){
 		Timer timer= new Timer(16,this);
-		frog= new Frog(200,HEIGHT-90,50,50);
+		frog= new Frog(250,HEIGHT-90,50,50);
 		cars1= new Cars[2];
 		cars2= new Cars[3];
 		logs1= new Logs[2];
@@ -63,21 +63,6 @@ public class Display extends JPanel implements ActionListener{
 		}
 	}
 	public void isInsideLog(){
-//		for (int i = 0; i < 3; i++) {
-//			if(frog.getFrog().getCenterY()<HEIGHT-240-i*50&&frog.getFrog().getCenterY()>HEIGHT-290-i*50){
-//
-//				if(frog.getFrog().getMinX()>logs1[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[0].getLog().getMaxX()){
-//					
-//				}
-//				else if(frog.getFrog().getMinX()>logs1[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[1].getLog().getMaxX()){
-//					
-//				}
-//				else{
-//					reset();
-//				}
-//			
-//		}
-//		}
 		if(frog.getFrog().getCenterY()<HEIGHT-240&&frog.getFrog().getCenterY()>HEIGHT-290){
 
 				if(frog.getFrog().getMinX()>logs1[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[0].getLog().getMaxX()){
@@ -134,7 +119,7 @@ public class Display extends JPanel implements ActionListener{
 	}
 	public void reset(){
 		deaths++;
-		frog.getFrog().x=200;
+		frog.getFrog().x=250;
 		frog.getFrog().y=HEIGHT-90;
 	}
 	@Override
