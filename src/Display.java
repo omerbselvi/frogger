@@ -3,6 +3,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -13,6 +17,7 @@ public class Display extends JPanel implements ActionListener{
 	public static int ERRORX=16;
 	public static int WIDTH=600+ERRORX;
 	public static int HEIGHT=500-ERRORY;
+	private BufferedImage image;
 	private Frog frog;
 	private Cars cars1[];
 	private Cars cars2[];
@@ -29,6 +34,14 @@ public class Display extends JPanel implements ActionListener{
 		logs1= new Logs[2];
 		logs2= new Logs[2];
 		logs3= new Logs[2];
+		
+		try {
+			image= ImageIO.read(getClass().getResourceAsStream("/map.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		for(int i=0;i<cars1.length;i++){
 			cars1[i]= new Cars(0+i*290,HEIGHT-140,100,50,3);
 		}
@@ -39,10 +52,10 @@ public class Display extends JPanel implements ActionListener{
 			logs1[i]= new Logs(0+i*250,HEIGHT-290,150,50,+1);
 		}
 		for(int i=0;i<logs2.length;i++){
-			logs2[i]= new Logs(0+i*300,HEIGHT-340,150,50,-3);
+			logs2[i]= new Logs(0+i*300,HEIGHT-340,150,50,-2);
 		}
 		for(int i=0;i<logs3.length;i++){
-		logs3[i]= new Logs(0+i*350,HEIGHT-390,150,50,+2);
+		logs3[i]= new Logs(0+i*350,HEIGHT-390,150,50,+1);
 		}
 			
 		
@@ -64,18 +77,30 @@ public class Display extends JPanel implements ActionListener{
 	}
 	public void isInsideLog(){
 		if(frog.getFrog().getCenterY()<HEIGHT-240&&frog.getFrog().getCenterY()>HEIGHT-290){
-				if(!((frog.getFrog().getMinX()>logs1[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[0].getLog().getMaxX())||(frog.getFrog().getMinX()>logs1[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[1].getLog().getMaxX()))){
+				if(!((frog.getFrog().getMinX()>logs1[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[0].getLog().getMaxX())||
+						(frog.getFrog().getMinX()>logs1[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[1].getLog().getMaxX()))){
 					reset();
+				}
+				else{
+					frog.mover(logs1[0].getSpeed());
 				}
 		}
 		if(frog.getFrog().getCenterY()<HEIGHT-290&&frog.getFrog().getCenterY()>HEIGHT-340){
-			if(!((frog.getFrog().getMinX()>logs2[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs2[0].getLog().getMaxX())||(frog.getFrog().getMinX()>logs2[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs2[1].getLog().getMaxX()))){
+			if(!((frog.getFrog().getMinX()>logs2[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs2[0].getLog().getMaxX())||
+					(frog.getFrog().getMinX()>logs2[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs2[1].getLog().getMaxX()))){
 				reset();
+			}
+			else{
+				frog.mover(logs2[0].getSpeed());
 			}
 		}
 		if(frog.getFrog().getCenterY()<HEIGHT-340&&frog.getFrog().getCenterY()>HEIGHT-390){
-			if(!((frog.getFrog().getMinX()>logs3[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs3[0].getLog().getMaxX())||(frog.getFrog().getMinX()>logs3[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs3[1].getLog().getMaxX()))){
+			if(!((frog.getFrog().getMinX()>logs3[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs3[0].getLog().getMaxX())||
+					(frog.getFrog().getMinX()>logs3[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs3[1].getLog().getMaxX()))){
 				reset();
+			}
+			else{
+				frog.mover(logs3[0].getSpeed());
 			}
 		}
 
@@ -101,11 +126,9 @@ public class Display extends JPanel implements ActionListener{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		setBackground(Color.red);
-		for(Cars car: cars1)
-			car.render(g);
-		for(Cars car: cars2)
-			car.render(g);
+		g.drawImage(image, 0, 0, null);
+		//System.out.println(frog.getFrog().x);
+		//setBackground(Color.red);
 		g.setColor(Color.ORANGE);
 		for(Logs log: logs1)
 			log.render(g);
@@ -113,8 +136,12 @@ public class Display extends JPanel implements ActionListener{
 			log.render(g);
 		for(Logs log: logs3)
 			log.render(g);
-		g.setColor(Color.GRAY);
 		frog.render(g);
+		g.setColor(Color.GRAY);
+		for(Cars car: cars1)
+			car.render(g);
+		for(Cars car: cars2)
+			car.render(g);
 		score();
 		showInfo(g);
 		didIntersectCar();
