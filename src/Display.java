@@ -64,43 +64,19 @@ public class Display extends JPanel implements ActionListener{
 	}
 	public void isInsideLog(){
 		if(frog.getFrog().getCenterY()<HEIGHT-240&&frog.getFrog().getCenterY()>HEIGHT-290){
-
-				if(frog.getFrog().getMinX()>logs1[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[0].getLog().getMaxX()){
-					
-				}
-				else if(frog.getFrog().getMinX()>logs1[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[1].getLog().getMaxX()){
-					
-				}
-				else{
+				if(!((frog.getFrog().getMinX()>logs1[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[0].getLog().getMaxX())||(frog.getFrog().getMinX()>logs1[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[1].getLog().getMaxX()))){
 					reset();
 				}
-			
 		}
 		if(frog.getFrog().getCenterY()<HEIGHT-290&&frog.getFrog().getCenterY()>HEIGHT-340){
-
-			if(frog.getFrog().getMinX()>logs2[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs2[0].getLog().getMaxX()){
-
-			}
-			else if(frog.getFrog().getMinX()>logs2[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs2[1].getLog().getMaxX()){
-
-			}
-			else{
+			if(!((frog.getFrog().getMinX()>logs2[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs2[0].getLog().getMaxX())||(frog.getFrog().getMinX()>logs2[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs2[1].getLog().getMaxX()))){
 				reset();
 			}
-
 		}
 		if(frog.getFrog().getCenterY()<HEIGHT-340&&frog.getFrog().getCenterY()>HEIGHT-390){
-
-			if(frog.getFrog().getMinX()>logs3[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs3[0].getLog().getMaxX()){
-
-			}
-			else if(frog.getFrog().getMinX()>logs3[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs3[1].getLog().getMaxX()){
-
-			}
-			else{
+			if(!((frog.getFrog().getMinX()>logs3[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs3[0].getLog().getMaxX())||(frog.getFrog().getMinX()>logs3[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs3[1].getLog().getMaxX()))){
 				reset();
 			}
-
 		}
 
 	}
