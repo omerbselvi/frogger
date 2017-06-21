@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -7,7 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -115,8 +115,9 @@ public class Display extends JPanel implements ActionListener{
 	public void showInfo(Graphics g){
 		Graphics2D g2d= (Graphics2D)g;
 		g.setColor(Color.BLACK);
-		g2d.drawString("Deaths:"+Integer.toString(deaths), 15, 15);
-		g2d.drawString("Score"+Integer.toString(score), 25, 25);
+		g2d.setFont(new Font("TimesRoman", Font.PLAIN, 18));
+		g2d.drawString("Deaths:"+Integer.toString(deaths), 15, 20);
+		g2d.drawString("Score"+Integer.toString(score), 105, 20);
 	}
 	public void reset(){
 		deaths++;
