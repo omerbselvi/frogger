@@ -28,11 +28,11 @@ public class Logs {
 	public void render(Graphics g){
 		Graphics2D g2d= (Graphics2D)g;
 		//g2d.fill(log);
-		g2d.drawImage(image, log.x, log.y,150,50, null);
+		g2d.drawImage(image, log.x, log.y,w,h, null);
 		move();
 		if(isOut()){
 			if(log.x>=Display.WIDTH/2)
-				log.x=-150;
+				log.x=-170;
 			else if(log.x<Display.WIDTH/2)
 				log.x=Display.WIDTH;
 		}

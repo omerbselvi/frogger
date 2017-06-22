@@ -49,13 +49,13 @@ public class Display extends JPanel implements ActionListener{
 			cars2[i]= new Cars(0+i*270,HEIGHT-190,100,50,-2);
 		}
 		for(int i=0;i<logs1.length;i++){
-			logs1[i]= new Logs(0+i*250,HEIGHT-290,150,50,+1);
+			logs1[i]= new Logs(0+i*250,HEIGHT-290,170,50,+2);
 		}
 		for(int i=0;i<logs2.length;i++){
-			logs2[i]= new Logs(0+i*300,HEIGHT-340,150,50,-2);
+			logs2[i]= new Logs(0+i*300,HEIGHT-340,170,50,-2);
 		}
 		for(int i=0;i<logs3.length;i++){
-		logs3[i]= new Logs(0+i*350,HEIGHT-390,150,50,+1);
+		logs3[i]= new Logs(0+i*350,HEIGHT-390,170,50,+3);
 		}
 			
 		
@@ -76,32 +76,20 @@ public class Display extends JPanel implements ActionListener{
 		}
 	}
 	public void isInsideLog(){
-		if(frog.getFrog().getCenterY()<HEIGHT-240&&frog.getFrog().getCenterY()>HEIGHT-290){
-				if(!((frog.getFrog().getMinX()>logs1[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[0].getLog().getMaxX())||
-						(frog.getFrog().getMinX()>logs1[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs1[1].getLog().getMaxX()))){
+		Logs logarray[][]=new Logs[][] {logs1,logs2,logs3};
+		
+		for (int i = 0; i < logarray.length; i++) {
+
+			if(frog.getFrog().getCenterY()<HEIGHT-240-i*50&&frog.getFrog().getCenterY()>HEIGHT-290-i*50){
+				if(!((frog.getFrog().getMinX()>logarray[i][0].getLog().getMinX()&&frog.getFrog().getMaxX()<logarray[i][0].getLog().getMaxX())||
+						(frog.getFrog().getMinX()>logarray[i][1].getLog().getMinX()&&frog.getFrog().getMaxX()<logarray[i][1].getLog().getMaxX()))){
 					reset();
 				}
 				else{
-					frog.mover(logs1[0].getSpeed());
+					frog.mover(logarray[i][1].getSpeed());
 				}
-		}
-		if(frog.getFrog().getCenterY()<HEIGHT-290&&frog.getFrog().getCenterY()>HEIGHT-340){
-			if(!((frog.getFrog().getMinX()>logs2[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs2[0].getLog().getMaxX())||
-					(frog.getFrog().getMinX()>logs2[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs2[1].getLog().getMaxX()))){
-				reset();
 			}
-			else{
-				frog.mover(logs2[0].getSpeed());
-			}
-		}
-		if(frog.getFrog().getCenterY()<HEIGHT-340&&frog.getFrog().getCenterY()>HEIGHT-390){
-			if(!((frog.getFrog().getMinX()>logs3[0].getLog().getMinX()&&frog.getFrog().getMaxX()<logs3[0].getLog().getMaxX())||
-					(frog.getFrog().getMinX()>logs3[1].getLog().getMinX()&&frog.getFrog().getMaxX()<logs3[1].getLog().getMaxX()))){
-				reset();
-			}
-			else{
-				frog.mover(logs3[0].getSpeed());
-			}
+
 		}
 
 	}
@@ -115,9 +103,9 @@ public class Display extends JPanel implements ActionListener{
 	public void showInfo(Graphics g){
 		Graphics2D g2d= (Graphics2D)g;
 		g.setColor(Color.BLACK);
-		g2d.setFont(new Font("TimesRoman", Font.PLAIN, 18));
-		g2d.drawString("Deaths:"+Integer.toString(deaths), 15, 20);
-		g2d.drawString("Score"+Integer.toString(score), 105, 20);
+		g2d.setFont(new Font("Arial", Font.PLAIN, 18));
+		g2d.drawString("Deaths: "+Integer.toString(deaths), 15, 20);
+		g2d.drawString("Score: "+Integer.toString(score), 105, 20);
 	}
 	public void reset(){
 		deaths++;
