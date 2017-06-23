@@ -37,8 +37,6 @@ public class Cars {
 			else 
 				changeSprite("/car_leftB.png");
 		}
-
-		
 	}
 	
 	public void changeSprite(String sprite){

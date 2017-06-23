@@ -17,6 +17,14 @@ public class Display extends JPanel implements ActionListener{
 	public static int ERRORX=16;
 	public static int WIDTH=600+ERRORX;
 	public static int HEIGHT=500-ERRORY;
+	public enum STATE{
+		MENU,
+		GAME,
+		HELP
+	};
+	public static STATE state=STATE.MENU;
+	
+	private Menu menu;
 	private BufferedImage image;
 	private Frog frog;
 	private Cars cars1[];
@@ -29,19 +37,14 @@ public class Display extends JPanel implements ActionListener{
 	Display(){
 		Timer timer= new Timer(16,this);
 		frog= new Frog(250,HEIGHT-90,50,50);
+		menu= new Menu();
 		cars1= new Cars[2];
 		cars2= new Cars[3];
 		logs1= new Logs[2];
 		logs2= new Logs[2];
 		logs3= new Logs[2];
 		
-		try {
-			image= ImageIO.read(getClass().getResourceAsStream("/map.png"));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+		loadMap("/map.png");
 		for(int i=0;i<cars1.length;i++){
 			cars1[i]= new Cars(0+i*290,HEIGHT-140,100,50,3);
 		}
@@ -58,7 +61,8 @@ public class Display extends JPanel implements ActionListener{
 		logs3[i]= new Logs(0+i*350,HEIGHT-390,170,50,+3);
 		}
 			
-		
+		this.addMouseListener(menu);
+		this.addMouseMotionListener(menu);
 		this.addKeyListener(frog);
 		setFocusable(true);
 		timer.start();
@@ -77,7 +81,7 @@ public class Display extends JPanel implements ActionListener{
 	}
 	public void isInsideLog(){
 		Logs logarray[][]=new Logs[][] {logs1,logs2,logs3};
-		
+
 		for (int i = 0; i < logarray.length; i++) {
 
 			if(frog.getFrog().getCenterY()<HEIGHT-240-i*50&&frog.getFrog().getCenterY()>HEIGHT-290-i*50){
@@ -89,9 +93,16 @@ public class Display extends JPanel implements ActionListener{
 					frog.mover(logarray[i][1].getSpeed());
 				}
 			}
-
 		}
-
+	}
+	
+	public void loadMap(String sprite){
+		try {
+			image= ImageIO.read(getClass().getResourceAsStream(sprite));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 	public void score(){
 		if(frog.getFrog().getCenterY()<HEIGHT-390){
@@ -115,10 +126,11 @@ public class Display extends JPanel implements ActionListener{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		
+		if(state==STATE.MENU){
+			menu.render(g);
+		}else if(state==STATE.GAME){
 		g.drawImage(image, 0, 0, null);
-		//System.out.println(frog.getFrog().x);
-		//setBackground(Color.red);
-		g.setColor(Color.ORANGE);
 		for(Logs log: logs1)
 			log.render(g);
 		for(Logs log: logs2)
@@ -135,6 +147,7 @@ public class Display extends JPanel implements ActionListener{
 		showInfo(g);
 		didIntersectCar();
 		isInsideLog();
+		}
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

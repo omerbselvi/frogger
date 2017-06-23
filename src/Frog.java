@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 
 public class Frog extends JPanel implements KeyListener{
 	private int x,y,w,h;
-	private int roundTo[]={50,100,150,200,250,300
-							,350,400,450,500,550};
 	private Rectangle frog;
 	private BufferedImage image;
 	
@@ -61,23 +59,26 @@ public class Frog extends JPanel implements KeyListener{
 			e1.printStackTrace();
 		}
 	}
+	public boolean state(){
+		return Display.state==Display.STATE.GAME;
+	}
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key=e.getKeyCode();
 
-		if (key==KeyEvent.VK_RIGHT) {
+		if (key==KeyEvent.VK_RIGHT&&state()) {
 			if(frog.getMaxX()+1*Display.GRID<Display.WIDTH)
 				frog.x=frog.x+1*Display.GRID;
 			frog.setLocation(frog.x, frog.y);
 			changeSprite("/frog_right.png");
 		}
-		else if(key==KeyEvent.VK_LEFT) {
+		else if(key==KeyEvent.VK_LEFT&&state()) {
 			if(frog.getMaxX()-1*Display.GRID>0)
 				frog.x=frog.x-1*Display.GRID;
 			frog.setLocation(frog.x, frog.y);
 			changeSprite("/frog_left.png");
 		}
-		else if(key==KeyEvent.VK_UP) {
+		else if(key==KeyEvent.VK_UP&&state()) {
 			if(frog.getMaxY()-1*Display.GRID>0)
 				frog.y=frog.y-1*Display.GRID;
 			if(frog.x%50==0/*||(frog.getCenterY()<HEIGHT-240&&frog.getCenterY()>HEIGHT-390)*/)
@@ -87,7 +88,7 @@ public class Frog extends JPanel implements KeyListener{
 			}
 			changeSprite("/frog.png");
 		}
-		else if(key==KeyEvent.VK_DOWN) {
+		else if(key==KeyEvent.VK_DOWN&&state()) {
 			if(frog.getMaxY()+1*Display.GRID<Display.HEIGHT)
 				frog.y=frog.y+1*Display.GRID;
 			if(frog.x%50==0/*||(frog.getCenterY()<HEIGHT-240&&frog.getCenterY()>HEIGHT-390)*/)
@@ -97,7 +98,6 @@ public class Frog extends JPanel implements KeyListener{
 			}
 			changeSprite("/frog_front.png");
 		}
-
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
