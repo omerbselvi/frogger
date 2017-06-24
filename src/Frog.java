@@ -14,6 +14,7 @@ public class Frog extends JPanel implements KeyListener{
 	private int x,y,w,h;
 	private Rectangle frog;
 	private BufferedImage image;
+	private String sprite;
 	
 
 	Frog(int x,int y,int w,int h){
@@ -52,6 +53,7 @@ public class Frog extends JPanel implements KeyListener{
 //		return roundto;
 	}
 	public void changeSprite(String sprite){
+		this.sprite=sprite;
 		try {
 			image= ImageIO.read(getClass().getResourceAsStream(sprite));
 		} catch (IOException e1) {
@@ -64,39 +66,48 @@ public class Frog extends JPanel implements KeyListener{
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		int key=e.getKeyCode();
-
-		if (key==KeyEvent.VK_RIGHT&&state()) {
-			if(frog.getMaxX()+1*Display.GRID<Display.WIDTH)
-				frog.x=frog.x+1*Display.GRID;
-			frog.setLocation(frog.x, frog.y);
-			changeSprite("/frog_right.png");
-		}
-		else if(key==KeyEvent.VK_LEFT&&state()) {
-			if(frog.getMaxX()-1*Display.GRID>0)
-				frog.x=frog.x-1*Display.GRID;
-			frog.setLocation(frog.x, frog.y);
-			changeSprite("/frog_left.png");
-		}
-		else if(key==KeyEvent.VK_UP&&state()) {
-			if(frog.getMaxY()-1*Display.GRID>0)
-				frog.y=frog.y-1*Display.GRID;
-			if(frog.x%50==0/*||(frog.getCenterY()<HEIGHT-240&&frog.getCenterY()>HEIGHT-390)*/)
-				frog.setLocation(frog.x, frog.y);
-			else{
-				frog.setLocation(roundTo(frog.x), frog.y);
+		if(state()){
+			int key=e.getKeyCode();
+			if (key==KeyEvent.VK_RIGHT) {
+				if(frog.getMaxX()+1*Display.GRID<Display.WIDTH&&sprite=="/frog_right.png"){
+					frog.x=frog.x+1*Display.GRID;
+					frog.setLocation(frog.x, frog.y);			
+				}
+				else{
+					changeSprite("/frog_right.png");
+				}
 			}
-			changeSprite("/frog.png");
-		}
-		else if(key==KeyEvent.VK_DOWN&&state()) {
-			if(frog.getMaxY()+1*Display.GRID<Display.HEIGHT)
-				frog.y=frog.y+1*Display.GRID;
-			if(frog.x%50==0/*||(frog.getCenterY()<HEIGHT-240&&frog.getCenterY()>HEIGHT-390)*/)
-				frog.setLocation(frog.x, frog.y);
-			else{
-				frog.setLocation(roundTo(frog.x), frog.y);
+			else if(key==KeyEvent.VK_LEFT) {
+				if(frog.getMaxX()-1*Display.GRID>0&&sprite=="/frog_left.png"){
+					frog.x=frog.x-1*Display.GRID;
+					frog.setLocation(frog.x, frog.y);
+				}
+				else{
+					changeSprite("/frog_left.png");
+				}
 			}
-			changeSprite("/frog_front.png");
+			else if(key==KeyEvent.VK_UP) {
+				if(frog.getMaxY()-1*Display.GRID>0){
+					frog.y=frog.y-1*Display.GRID;
+					if(frog.x%50==0)
+						frog.setLocation(frog.x, frog.y);
+					else{
+						frog.setLocation(roundTo(frog.x), frog.y);
+					}
+					changeSprite("/frog.png");
+				}
+			}
+			else if(key==KeyEvent.VK_DOWN) {
+				if(frog.getMaxY()+1*Display.GRID<Display.HEIGHT){
+					frog.y=frog.y+1*Display.GRID;
+					if(frog.x%50==0)
+						frog.setLocation(frog.x, frog.y);
+					else{
+						frog.setLocation(roundTo(frog.x), frog.y);
+					}
+					changeSprite("/frog_front.png");
+				}
+			}
 		}
 	}
 	@Override

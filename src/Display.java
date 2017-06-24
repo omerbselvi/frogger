@@ -126,8 +126,7 @@ public class Display extends JPanel implements ActionListener{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		if(state==STATE.MENU){
+		if(state==STATE.MENU||state==STATE.HELP){
 			menu.render(g);
 		}else if(state==STATE.GAME){
 		g.drawImage(image, 0, 0, null);
@@ -138,7 +137,6 @@ public class Display extends JPanel implements ActionListener{
 		for(Logs log: logs3)
 			log.render(g);
 		frog.render(g);
-		g.setColor(Color.GRAY);
 		for(Cars car: cars1)
 			car.render(g);
 		for(Cars car: cars2)
