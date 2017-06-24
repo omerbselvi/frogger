@@ -66,12 +66,16 @@ public class Menu implements MouseMotionListener,MouseListener,KeyListener{
 		}
 	}
 
-	public void drawFaces(Graphics2D g2d){
-		
+	public void drawFaces(Graphics2D g2d){		
 		for (int i = 0; i < image.length; i++) {
 			AffineTransform at = AffineTransform.getTranslateInstance(randX[i], randY[i]);
-			at.rotate(Math.toRadians(randRadian[i]++),image[i].getWidth()/2,image[i].getHeight()/2);
+			if(i%2==0)
+				at.rotate(Math.toRadians(randRadian[i]++),image[i].getWidth()/2,image[i].getHeight()/2);
+			else
+				at.rotate(Math.toRadians(randRadian[i]--),image[i].getWidth()/2,image[i].getHeight()/2);
 			g2d.drawImage(image[i], at, null);
+			if(randRadian[i]==360||randRadian[i]==-360)
+				randRadian[i]=0;
 		}
 	}
 	public void render(Graphics g){
