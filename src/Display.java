@@ -131,13 +131,7 @@ public class Display extends JPanel implements ActionListener{
 		Graphics2D g2d= (Graphics2D)g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	}
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		AntiAliasing(g);
-		if(state==STATE.MENU||state==STATE.HELP){
-			menu.render(g);
-		}else if(state==STATE.GAME){
+	public void renderGame(Graphics g){
 		g.drawImage(image, 0, 0, null);
 		for(Logs log: logs1)
 			log.render(g);
@@ -150,6 +144,15 @@ public class Display extends JPanel implements ActionListener{
 			car.render(g);
 		for(Cars car: cars2)
 			car.render(g);
+	}
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		AntiAliasing(g);
+		if(state==STATE.MENU||state==STATE.HELP){
+			menu.render(g);
+		}else if(state==STATE.GAME){
+		renderGame(g);
 		score();
 		showInfo(g);
 		didIntersectCar();
