@@ -76,26 +76,26 @@ public class Frog extends JPanel implements KeyListener{
 				}
 			}
 			else if(key==KeyEvent.VK_UP) {
-				if(frog.getMaxY()-1*Display.GRID>0){
+				if(frog.getMaxY()-1*Display.GRID>0)
 					frog.y=frog.y-1*Display.GRID;
-					if(frog.x%50==0)
-						frog.setLocation(frog.x, frog.y);
-					else{
-						frog.setLocation(roundTo(frog.x), frog.y);
-					}
-					changeSprite("/frog.png");
+				if(frog.x%50==0)
+					frog.setLocation(frog.x, frog.y);
+				else{
+					frog.setLocation(roundTo(frog.x), frog.y);
 				}
+				changeSprite("/frog.png");
+
 			}
 			else if(key==KeyEvent.VK_DOWN) {
-				if(frog.getMaxY()+1*Display.GRID<Display.HEIGHT){
+				if(frog.getMaxY()+1*Display.GRID<Display.HEIGHT)
 					frog.y=frog.y+1*Display.GRID;
-					if(frog.x%50==0)
-						frog.setLocation(frog.x, frog.y);
-					else{
-						frog.setLocation(roundTo(frog.x), frog.y);
-					}
-					changeSprite("/frog_front.png");
+				if(frog.x%50==0)
+					frog.setLocation(frog.x, frog.y);
+				else{
+					frog.setLocation(roundTo(frog.x), frog.y);
 				}
+				changeSprite("/frog_front.png");
+
 			}
 		}
 	}
