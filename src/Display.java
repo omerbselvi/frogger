@@ -3,15 +3,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
-public class Display extends JPanel implements ActionListener{
+public class Display extends JPanel implements Runnable{
 	public static int GRID=50;
 	public static int ERRORY=10;
 	public static int ERRORX=16;
@@ -35,7 +32,6 @@ public class Display extends JPanel implements ActionListener{
 	private int deaths=0;
 	private int score=0;
 	Display(){
-		Timer timer= new Timer(16,this);
 		frog= new Frog(250,HEIGHT-90,50,50);
 		menu= new Menu();
 		cars1= new Cars[2];
@@ -46,13 +42,13 @@ public class Display extends JPanel implements ActionListener{
 		
 		loadMap();
 		initializeGame();
+		start();
 		
 		this.addKeyListener(menu);
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 		this.addKeyListener(frog);
 		setFocusable(true);
-		timer.start();
 	}
 	public void initializeGame(){
 		for(int i=0;i<cars1.length;i++){
@@ -159,8 +155,22 @@ public class Display extends JPanel implements ActionListener{
 		isInsideLog();
 		}
 	}
+
+    public void start() {   			
+        Thread thread = new Thread(this);
+        thread.start();
+    }
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		repaint();
+	public void run() {
+		// TODO Auto-generated method stub
+		while (true) {
+            repaint();
+            try {
+                Thread.sleep(17);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 	}
+
 }
