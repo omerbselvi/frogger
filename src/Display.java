@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -44,7 +45,17 @@ public class Display extends JPanel implements ActionListener{
 		logs2= new Logs[2];
 		logs3= new Logs[2];
 		
-		loadMap("/map.png");
+		loadMap();
+		initializeGame();
+		
+		this.addKeyListener(menu);
+		this.addMouseListener(menu);
+		this.addMouseMotionListener(menu);
+		this.addKeyListener(frog);
+		setFocusable(true);
+		timer.start();
+	}
+	public void initializeGame(){
 		for(int i=0;i<cars1.length;i++){
 			cars1[i]= new Cars(0+i*290,HEIGHT-140,100,50,3);
 		}
@@ -60,12 +71,6 @@ public class Display extends JPanel implements ActionListener{
 		for(int i=0;i<logs3.length;i++){
 		logs3[i]= new Logs(0+i*350,HEIGHT-390,170,50,+3);
 		}
-			
-		this.addMouseListener(menu);
-		this.addMouseMotionListener(menu);
-		this.addKeyListener(frog);
-		setFocusable(true);
-		timer.start();
 	}
 	public void didIntersectCar(){
 		for(Cars car:cars1){
@@ -96,9 +101,9 @@ public class Display extends JPanel implements ActionListener{
 		}
 	}
 	
-	public void loadMap(String sprite){
+	public void loadMap(){
 		try {
-			image= ImageIO.read(getClass().getResourceAsStream(sprite));
+			image= ImageIO.read(getClass().getResourceAsStream("/map.png"));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -123,9 +128,14 @@ public class Display extends JPanel implements ActionListener{
 		frog.getFrog().x=250;
 		frog.getFrog().y=HEIGHT-90;
 	}
+	public void AntiAliasing(Graphics g){
+		Graphics2D g2d= (Graphics2D)g;
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		AntiAliasing(g);
 		if(state==STATE.MENU||state==STATE.HELP){
 			menu.render(g);
 		}else if(state==STATE.GAME){
@@ -149,7 +159,6 @@ public class Display extends JPanel implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		
 		repaint();
 	}
 }

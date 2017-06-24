@@ -11,10 +11,5 @@ public class main {
         frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-
-		
-
 	}
-
-
 }

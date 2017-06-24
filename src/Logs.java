@@ -10,6 +10,7 @@ public class Logs {
 	private int x,y,w,h,speed;
 	private Rectangle log;
 	private BufferedImage image;
+	
 	Logs(int x,int y,int w,int h,int speed){
 		this.x=x;
 		this.y=y;
@@ -43,15 +44,12 @@ public class Logs {
 	public void move(){
 		log.x=log.x+speed;
 	}
-
 	public Rectangle getLog() {
 		return log;
 	}
-
 	public void setLog(Rectangle log) {
 		this.log = log;
 	}
-
 	public int getSpeed() {
 		return speed;
 	}

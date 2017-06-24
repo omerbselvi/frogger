@@ -38,20 +38,9 @@ public class Frog extends JPanel implements KeyListener{
 		mover(0);
 	}
 	public int roundTo(int number){
-		
-		 return number - (number%50);
-//		int smallest=Math.abs(roundTo[0]-number);
-//		System.out.println("smal: "+roundTo[0]);
-//		int roundto=roundTo[0];
-//		for (int i = 1; i < roundTo.length; i++) {
-//			if(Math.abs(roundTo[i]-number)<smallest&&Math.abs(roundTo[i]-number)>0){
-//				roundto=roundTo[i];
-//				smallest=roundTo[i]-number;
-//				System.out.println("smallþlll: "+roundto);
-//			}
-//		}
-//		return roundto;
+		return number - (number%50);
 	}
+	
 	public void changeSprite(String sprite){
 		this.sprite=sprite;
 		try {
