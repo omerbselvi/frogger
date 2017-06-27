@@ -7,7 +7,7 @@ public class main {
 		Display game= new Display();	
 		frame.add(game);
 		frame.setSize(600,480);
-        frame.setResizable(false);
+      		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
